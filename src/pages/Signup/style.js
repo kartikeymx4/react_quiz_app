@@ -21,7 +21,7 @@ input{
     padding: 10px;
     font-size: 1rem;
 }
-input[type = button]{
+input[type = submit]{
     background-color: #4ac1a3;
     border: none;
     border-radius: 3px;

@@ -6,20 +6,22 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-    switch(action.type){
+    switch (action.type) {
         case "ADD_USER":
-            return{
+            return {
                 ...state,
                 users: [...state.users, action.payload]
             }
         case "LOGIN":
             const user = state.users.find(user => user.contact === action.payload.contact && user.password === action.payload.password)
-            if(user){
+            if (user) {
+                console.log(user)
+                console.log(state.loggedInUser)
                 return {
                     ...state,
                     loggedInUser: user
                 }
-            }else{
+            } else {
                 return state
             }
         default:

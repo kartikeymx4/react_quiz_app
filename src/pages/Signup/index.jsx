@@ -1,52 +1,64 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Wrapper from './style'
+import axios from 'axios'
 
 const User = () => {
   const [name, setName] = useState("")
   const [contact, setContact] = useState("")
   const [password, setPassword] = useState("")
-  const dispatch = useDispatch()
+  const [role, setRole] = useState("student")
 
-  const add = () => {
-    dispatch({
-      type: "ADD_USER",
-      payload: { name, contact, password }
+  const add = (e) => {
+    e.preventDefault()
+    e.target.value = "Registering..."
+    e.target.disabled = true
+    console.log(e.target)
+
+    axios.post("https://server-api1-li2k.onrender.com/api/user/add", {
+      name, contact, password, role
+    }).then(res => {
+      console.log(res.data)
+      alert("Your account is successfully created")
+    }).catch(err => {
+      console.log(err.message)
+    }).finally(() => {
+      console.log("finally is running")
+      e.target.value = "Register"
+      e.target.disabled = false
     })
   }
 
-  const loggedInUser = useSelector(state => state.loggedInUser)
-  const navigate = useNavigate()
-
-  useEffect(()=>{
-    if(loggedInUser){
-      navigate("/login")
-    }
-  }, [loggedInUser, navigate])
-
-
   return (
-    <Wrapper>
+    <Wrapper action="">
       <span id='heading'>Sign Up</span>
       <input type="text"
         placeholder='Name'
         value={name}
+        required="required"
         onChange={(e) => { setName(e.target.value) }}
       />
       <input type="text"
         placeholder='Contact'
         value={contact}
+        required="required"
         onChange={(e) => { setContact(e.target.value) }}
       />
       <input type="text"
         placeholder='Password'
         value={password}
+        required="required"
         onChange={(e) => { setPassword(e.target.value) }}
       />
-      <input type="button"
-        value="Submit"
-        onClick={add}
+      <select onChange={(e) => setRole(e.target.value)}>
+        <option disabled>---User Type---</option>
+        <option value="student">Student</option>
+        <option value="faculty">Faculty</option>
+      </select>
+      <input type="submit"
+      value = "Register"
+      disabled = {false}
+      onClick={add}
       />
       <div>
         <span>Already have an account?</span>
@@ -57,3 +69,9 @@ const User = () => {
 }
 
 export default User
+
+
+// dispatch({
+//   type: "ADD_USER",
+//   payload: { name, contact, password }
+// })
