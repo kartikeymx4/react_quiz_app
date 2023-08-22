@@ -22,10 +22,15 @@ const User = () => {
       alert("Your account is successfully created")
     }).catch(err => {
       console.log(err.message)
+      alert("Something went wrong")
     }).finally(() => {
       console.log("finally is running")
       e.target.value = "Register"
       e.target.disabled = false
+      setContact("")
+      setName("")
+      setPassword("")
+      setRole("student")
     })
   }
 
@@ -50,7 +55,7 @@ const User = () => {
         required="required"
         onChange={(e) => { setPassword(e.target.value) }}
       />
-      <select onChange={(e) => setRole(e.target.value)}>
+      <select onChange={(e) => setRole(e.target.value)} value={role}>
         <option disabled>---User Type---</option>
         <option value="student">Student</option>
         <option value="faculty">Faculty</option>

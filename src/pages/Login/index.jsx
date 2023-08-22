@@ -22,10 +22,13 @@ const Login = () => {
             console.log(res.data)
         }).catch(err => {
             console.log(err.message)
+            alert("Wrong user credentials")
         }).finally(() => {
             console.log("Finally is running")
             e.target.value = "Login"
             e.target.disabled = false
+            setContact("")
+            setPassword("")
         })
     }
 
