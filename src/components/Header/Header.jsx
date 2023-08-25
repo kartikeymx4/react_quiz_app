@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 const Header = () => {
   return (
     <header>
-      <Link to='/teacher'>Teacher</Link>
-      <br></br>
-      <Link to='/'>Home</Link>
+      <Link to='/teacher'> Teacher </Link>
+      <Link to='/'> Home </Link>
+
     </header>
   )
 }
